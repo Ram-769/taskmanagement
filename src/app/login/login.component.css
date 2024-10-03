@@ -1,0 +1,24 @@
+.text-center {
+    text-align: center !important;
+}
+div {
+    display: block;
+    unicode-bidi: isolate;
+}
+label {
+    color: black;
+  }
+  .text-primary {
+    /* color: #5d9ce0; */
+    color: #3b82f6
+  }
+
+
+  .ng-invalid {
+    border: 2px solid red; /* Red border to indicate invalid input */
+    /* Light red background to highlight invalid field */
+}
+
+
+
+

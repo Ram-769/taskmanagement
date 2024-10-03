@@ -1,0 +1,44 @@
+.text-primary {
+    color: #007bff;
+  }
+
+  .text-muted {
+    color: #6c757d;
+  }
+
+  .font-bold {
+    font-weight: bold;
+  }
+
+  .field-checkbox {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+
+  .field-checkbox label {
+    margin-left: 10px;
+  }
+
+  .p-inputtext-lg {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
+
+  .p-button-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+
+  .p-button-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  label {
+    color: black;
+  }
+
+  .text-center {
+    text-align: center !important;
+}

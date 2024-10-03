@@ -1,0 +1,181 @@
+<div style="background-color: #eff3f8; padding: 20px; height: 100%; overflow: auto;">
+  <div style="max-width: 600px; margin: 40px auto">
+    <p-toast />
+    <p-card
+      [style]="{ width: '100%', height: 'auto', padding: '2rem' }"
+      class="shadow-8"
+    >
+      <!-- Card Header -->
+      <ng-template pTemplate="header">
+        <div class="text-center mb-5">
+          <h3 class="text-primary text-3xl font-bold">Product Management</h3>
+          <p class="text-muted font-medium">
+            Manage products and assign permissions
+          </p>
+        </div>
+      </ng-template>
+
+      <!-- Form Fields -->
+      <div class="p-fluid">
+        <div class="field mb-4">
+          <label for="prodcutName" class="block text-900 font-medium mb-2">Product Name</label>
+          <input
+            id="prodcutName"
+            type="text"
+            pInputText
+            [(ngModel)]="payload.productName"
+            placeholder="Enter product name"
+            class="p-inputtext-lg"
+          />
+        </div>
+
+        <div class="field mb-4">
+          <label for="description" class="block text-900 font-medium mb-2">Product Description</label>
+          <textarea
+            rows="5"
+            cols="30"
+            pInputTextarea
+            [(ngModel)]="payload.productDescription"
+          ></textarea>
+        </div>
+
+
+        <div class="grid mb-4">
+          <div class="col-4">
+            <div class="field">
+              <label for="phase" class="block">Phase:</label>
+              <input
+                type="text"
+                pInputText
+                [(ngModel)]="payload.phase"
+                placeholder="Phase"
+                class="w-full"
+              />
+          
+            </div>
+          </div>
+
+          <div class="col-5">
+            <div class="field">
+              <label class="block" for="productType">Product Type:</label>
+              <p-dropdown
+                [options]="users"
+                [(ngModel)]="payload.productType"
+                optionLabel="user"
+                placeholder="Select a Product Type"
+                class="w-full"
+              ></p-dropdown>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="field ">
+              <label class="block" for="document">Document:</label>
+              <p-toast />
+    <p-fileUpload 
+        mode="basic"      
+        chooseIcon="pi pi-upload" 
+        accept="image/*" maxFileSize="1000000" 
+        (onUpload)="onBasicUploadAuto($event)" 
+        [auto]="true" 
+        id="document"
+        chooseLabel="Browse" />
+          
+            </div>
+          </div>
+        </div>
+
+        <div class="grid mb-4">
+          <div class="field col-6">
+            <label for="StartDate" class="block text-900 font-medium mb-2">Start Date:</label>
+            <p-calendar [(ngModel)]="payload.startDate" id="StartDate"></p-calendar>
+          </div>
+
+          <div class="field col-6">
+            <label for="endDate" class="block text-900 font-medium mb-2">End Date:</label>
+            <p-calendar [(ngModel)]="payload.endDate" id="EndDate"></p-calendar>
+          </div>
+        </div>
+        <div class="field mb-1">
+          <label for="description-1" class="block text-900 font-medium mb-2">Description</label>
+          <textarea
+            rows="5"
+            cols="30"
+            id="description-1"
+            pInputTextarea
+            [(ngModel)]="payload.description"
+          ></textarea>
+        </div>
+        <div class="col-3">
+          <div class="field-checkbox mt-5">
+            <p-checkbox name="products" value="Product 3" inputId="product3"></p-checkbox>
+            <label class="block" for="product3">isActive</label>
+        
+          </div>
+        </div>
+        <!-- Static Grid (User Permissions Table) -->
+        <div class="mt-3">
+          <p-table
+            [value]="Users"
+            styleClass="p-datatable-gridlines p-datatable-sm"
+            [tableStyle]="{ 'min-width': '100%' }"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>S.No</th>
+                <th>User</th>
+                <th>Edit</th>
+                <th>Update</th>
+                <th>Create</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user let-rowIndex="rowIndex">
+              <tr>
+                <td>{{ rowIndex + 1 }}</td>
+                <td>{{ user.name }}</td>
+                <td>
+                  <i
+                    class="pi"
+                    [ngClass]="
+                      user.isEdit
+                        ? 'pi-check text-green-1000 thick-icon'
+                        : 'pi-times text-red-1000 thick-icon'
+                    "
+                  ></i>
+                </td>
+                <td>
+                  <i
+                    class="pi"
+                    [ngClass]="
+                      user.isUpdate
+                        ? 'pi-check text-green-1000 thick-icon'
+                        : 'pi-times text-red-1000 thick-icon'
+                    "
+                  ></i>
+                </td>
+                <td>
+                  <i
+                    class="pi"
+                    [ngClass]="
+                      user.isCreate
+                        ? 'pi-check text-green-1000 thick-icon'
+                        : 'pi-times text-red-100 thick-icon'
+                    "
+                  ></i>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="mt-5">
+          <p-button
+            label="Submit"
+            (onClick)="submit()"
+            class="p-button-rounded p-button-primary w-full"
+          ></p-button>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

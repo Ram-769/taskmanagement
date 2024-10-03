@@ -1,0 +1,13 @@
+.text-center {
+    text-align: center !important;
+}
+textarea {
+    height: 80px;
+    width: 503px;
+    resize: both; /* Allow both horizontal and vertical resizing */
+    overflow: auto; /* Handle scrollbars when content exceeds the size */
+}
+.thick-icon {
+    font-size: 1rem; /* Adjust this value for the thickness */
+    font-weight: bold; /* Increase boldness (if supported) */
+  }

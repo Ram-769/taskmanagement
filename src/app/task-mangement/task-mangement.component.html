@@ -1,0 +1,245 @@
+<p-toast />
+<div
+  class="card col-12"
+  style="
+    border: 1px solid rgb(234, 221, 221);
+    margin-top: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fafafa;
+    height: 100%;
+    overflow: auto;
+  "
+>
+  <p-toast></p-toast>
+  <p-tabView>
+    <p-tabPanel *ngFor="let tab of tabs" [header]="tab.title">
+      <div class="grid">
+        <div class="col-6">
+          <div class="field">
+            <label class="block" for="discussionDate">Discussion Date</label>
+            <p-calendar
+              id="discussionDate"
+              [(ngModel)]="payload.discussionDate"
+              [showTime]="true"
+              [hourFormat]="'12'"
+              styleClass="w-full"
+              placeholder="Select a Date"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="field">
+            <label class="block" for="hostName">Host Name</label>
+
+            <p-dropdown
+              id="hostName"
+              [options]="cities"
+              [(ngModel)]="payload.hostName"
+              optionLabel="name"
+              optionValue="id"
+              placeholder="Select Users"
+              styleClass="w-full"
+            ></p-dropdown>
+          </div>
+        </div>
+        <div class="field grid col-12">
+          <div class="col-6">
+            <label for="agenda" class="block">Agenda (MOM):</label>
+            <input
+              type="text"
+              id="agenda"
+              class="w-full"
+              pInputText
+              [(ngModel)]="payload.agenda"
+            />
+          </div>
+          <div class="col-5">
+            <label for="agenda" class="block">Transcript:</label>
+            <input
+              type="text"
+              id="agenda"
+              class="w-full"
+              pInputText
+              [(ngModel)]="payload.transcript"
+            />
+          </div>
+          <div class="col-1">
+            <label for="fileUpload" class="block">Document</label>
+            <p-fileUpload
+              mode="basic"
+              chooseIcon="pi pi-upload"
+              accept="image/*"
+              maxFileSize="1000000"
+              [(ngModel)]="payload.file"
+              (onUpload)="onBasicUploadAuto($event)"
+              [auto]="true"
+              id="document"
+              chooseLabel="Browse"
+            ></p-fileUpload>
+          </div>
+        </div>
+      </div>
+      <div class="formgrid grid" style="margin-top: 20px">
+        <div class="col-12">
+          <p-table
+            [value]="tasks"
+            [resizableColumns]="true"
+            columnResizeMode="expand"
+            styleClass="p-datatable-gridlines"
+            [tableStyle]="{ 'min-width': '50rem' }"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th pResizableColumn style="width: 5%">S.No</th>
+                <th pResizableColumn style="width: 40%">Task Details</th>
+                <th pResizableColumn style="width: 15%">Delivery Date</th>
+                <th pResizableColumn style="width: 10%">User</th>
+                <th pResizableColumn style="width: 10%">Status</th>
+                <th pResizableColumn style="width: 10%">Comment</th>
+                <th pResizableColumn style="width: 10%">Actions</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-task let-rowIndex="rowIndex">
+              <tr>
+                <td>{{ rowIndex + 1 }}</td>
+                <td>{{ task.taskDetails }}</td>
+                <td>{{ task.deliveryDate }}</td>
+                <td>{{ task.user }}</td>
+                <td>
+                  <span
+                    [ngClass]="{
+                      highlight: task.state == 1,
+                      gray: task.state != 1
+                    }"
+                  >
+                    Dev
+                  </span>
+                  &nbsp;
+                  <span
+                    [ngClass]="{
+                      highlight: task.state == 2,
+                      gray: task.state != 2
+                    }"
+                  >
+                    QA
+                  </span>
+                  &nbsp;
+                  <span
+                    [ngClass]="{
+                      highlight: task.state == 3,
+                      gray: task.state != 3
+                    }"
+                  >
+                    Production
+                  </span>
+                </td>
+                <td>
+                  <div>{{ task.comment }}</div>
+                  <div>
+                    <input
+                      type="text"
+                      pInputText
+                      [(ngModel)]="task.comment"
+                      *ngIf="false"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <p-button
+                    label="Edit"
+                    class="p-button-sm p-button-secondary"
+                  ></p-button>
+                  &nbsp;
+                  <p-button
+                    label="Delete"
+                    class="p-button-sm p-button-danger"
+                  ></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="col-12" style="margin-top: 20px">
+          <div class="formgrid grid" style="align-items: center">
+            <div class="field col-3">
+              <input
+                type="text"
+                pInputText
+                [(ngModel)]="newTask.taskDetails"
+                placeholder="Task Details"
+                class="w-full"
+              />
+            </div>
+            <div class="field col-3">
+              <p-calendar
+                [(ngModel)]="newTask.deliveryDate"
+                placeholder="Delivery Date" readonlyInput="true"
+                class="w-full"
+              ></p-calendar>
+            </div>
+       
+            <div class="field col-2">
+              <p-multiSelect
+              [options]="users"
+              
+              [(ngModel)]="newTask.user"
+              optionLabel="user"
+              optionValue="user"
+              
+              placeholder="Select Users"
+              class="w-full"
+            ></p-multiSelect>
+            
+            </div>
+            <div class="field col-2">
+              <input
+                type="text"
+                pInputText
+                [(ngModel)]="newTask.comment"
+                optionLabel="name"
+                optionValue="id"
+                placeholder="Add Comment"
+                class="w-full"
+              />
+            </div>
+            <div class="field col-2">
+              <p-button
+                label="Add Task"
+                (onClick)="addTask()"
+                class="p-button-sm p-button-success"
+              ></p-button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="field col-12 md:col-6">
+          <label class="block" for="comments">Comments:</label>
+          <textarea
+            rows="5"
+            cols="30"
+            pInputTextarea
+            id="comments"
+            [(ngModel)]="payload.comments"
+            class="w-full"
+          ></textarea>
+        </div>
+        <div class="flex justify-content-center flex-wrap">
+          <p-button
+            label="Submit"
+            (onClick)="submit()"
+            class="p-button-sm p-button-success"
+          ></p-button>
+        </div>
+      </div>
+    </p-tabPanel>
+  </p-tabView>
+  <div *ngIf="uiState == 4" class="overlay">
+    <div class="spinner-container">
+      <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
+    </div>
+  </div>
+</div>
